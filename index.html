@@ -19,7 +19,6 @@
       overflow: hidden;
     }
 
-    /* CORAÇÕES FLUTUANDO */
     .heart {
       position: fixed;
       bottom: -20px;
@@ -68,7 +67,6 @@
       100% { transform: scale(1); }
     }
 
-    /* CARD GLASSMORPHISM */
     .card {
       display: none;
       max-width: 90%;
@@ -88,7 +86,6 @@
       100% { transform: scaleY(1); opacity: 1; }
     }
 
-    /* TÍTULO COM EFEITO DE DIGITAÇÃO */
     h1 {
       color: #d14d72;
       font-size: 28px;
@@ -132,131 +129,117 @@
 </head>
 <body>
 
-  <!-- CORAÇÕES ANIMADOS -->
-  <script>
-    setInterval(() => {
+<script>
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (20 + Math.random() * 30) + "px";
+    heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }, 400);
+
+  document.addEventListener("click", (e) => {
+    const boom = document.createElement("div");
+    boom.classList.add("heart");
+    boom.innerHTML = "💖";
+
+    boom.style.left = e.clientX + "px";
+    boom.style.top = e.clientY + "px";
+    boom.style.position = "absolute";
+    boom.style.animationDuration = (1 + Math.random()) + "s";
+    boom.style.fontSize = (15 + Math.random() * 25) + "px";
+
+    document.body.appendChild(boom);
+    setTimeout(() => boom.remove(), 2000);
+  });
+</script>
+
+<button id="startBtn" class="start">
+  <span class="dog-emoji">🐶</span>
+</button>
+
+<div class="card">
+  <h1 id="titulo"></h1>
+  <button onclick="novaFrase()" class="btn">Nova frase</button>
+  <p id="frase"></p>
+</div>
+
+<script>
+  const frases = [
+    "Você tem uma beleza que chama atenção sem nem tentar.",
+    "Não estou te vendo, mas tenho certeza que você está muito linda.",
+    "Se eu pudesse eu te comprava um lanche todo dia.",
+    "É impossível não pensar em você durante o dia.",
+    "Você tem um brilho que não dá pra ignorar.",
+    "Falar com você sempre melhora meu humor.",
+    "Você é diferentemente diferente de tudo (no bom sentido).",
+    "Você tem um jeito tão único que é impossível não notar.",
+    "Cada mensagem sua me faz pensar o quão interessante você é.",
+    "Não sei o que você tem, mas sempre me faz sorrir.",
+    "Sou fã de tudo que você faz.",
+    "‘Vitória’ é conquista — e você é a mais linda que eu poderia ter.",
+    "Eu poderia escrever mil códigos, mas nenhum explicaria o quanto você é incrível.",
+    "Você merece algo que dá mais trabalho que uma mensagem no WhatsApp.",
+    "Se eu fosse te definir com código: vitoria = infinito.",
+    "Só criaria um site para uma pessoa: você."
+  ];
+
+  function novaFrase() {
+    const escolhida = frases[Math.floor(Math.random() * frases.length)];
+    document.getElementById('frase').innerText = escolhida;
+  }
+
+  function digitar(texto, elemento, velocidade = 70) {
+    elemento.textContent = "";
+    let i = 0;
+    function escrever() {
+      if (i < texto.length) {
+        elemento.textContent += texto.charAt(i);
+        i++;
+        setTimeout(escrever, velocidade);
+      }
+    }
+    escrever();
+  }
+
+  function coracoesExplodindoCentro() {
+    for (let i = 0; i < 12; i++) {
       const heart = document.createElement("div");
       heart.classList.add("heart");
-      heart.innerHTML = "❤️";
+      heart.innerHTML = "💖";
 
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (20 + Math.random() * 30) + "px";
-      heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+      heart.style.left = "50vw";
+      heart.style.top = "50vh";
+      heart.style.position = "fixed";
+      heart.style.animationDuration = (1 + Math.random()) + "s";
+      heart.style.fontSize = (20 + Math.random() * 40) + "px";
 
       document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 5000);
-    }, 400);
-
-    // Corações que explodem ao clicar
-    document.addEventListener("click", (e) => {
-      for (let i = 0; i < 1; i++) {
-        const boom = document.createElement("div");
-        boom.classList.add("heart");
-        boom.innerHTML = "💖";
-
-        boom.style.left = e.clientX + "px";
-        boom.style.top = e.clientY + "px";
-        boom.style.position = "absolute";
-        boom.style.animationDuration = (1 + Math.random()) + "s";
-        boom.style.fontSize = (15 + Math.random() * 25) + "px";
-
-        document.body.appendChild(boom);
-        setTimeout(() => boom.remove(), 2000);
-      }
-    });
-  </script>
-
-  <!-- Botão inicial -->
-  <button id="startBtn" class="start">
-    <span class="dog-emoji">🐶</span>
-  </button>
-
-  <!-- Card -->
-  <div class="card">
-    <h1 id="titulo"></h1>
-
-    <button onclick="novaFrase()" class="btn">Nova frase</button>
-    <p id="frase"></p>
-  </div>
-
-  <script>
-    const frases = [
-      "Você tem uma beleza que chama atenção sem nem tentar.",
-      "Não estou te vendo, mas tenho certeza que você está muito linda.",
-      "Se eu pudesse eu te comprava um lanche todo dia.",
-      "É impossível não pensar em você durante o dia.",
-      "Você tem um brilho que não dá pra ignorar.",
-      "Falar com você sempre melhora meu humor.",
-      "Você é diferentemente diferente de tudo (no bom sentido).",
-      "Você tem um jeito tão único que é impossível não notar.",
-      "Cada mensagem sua me faz pensar o quão interessante você é.",
-      "Não sei o que você tem, mas sempre me faz sorrir.",
-      "Sou fã de tudo que você faz.",
-      "‘Ana’ é graça e ‘Clara’ é luz — não à toa você ilumina tudo.",
-      "Eu poderia escrever mil códigos, mas nenhum explicaria o quanto você é incrível.",
-      "Você merece algo que dá mais trabalho que uma mensagem no WhatsApp.",
-      "Se eu fosse te definir com código: ana_clara = infinito.",
-      "Só criaria um site para uma pessoa: você."
-    ];
-
-    function novaFrase() {
-      const escolhida = frases[Math.floor(Math.random() * frases.length)];
-      document.getElementById('frase').innerText = escolhida;
+      setTimeout(() => heart.remove(), 2000);
     }
+  }
 
-    // EFEITO DE DIGITAÇÃO
-    function digitar(texto, elemento, velocidade = 70) {
-      elemento.textContent = "";
-      let i = 0;
-      function escrever() {
-        if (i < texto.length) {
-          elemento.textContent += texto.charAt(i);
-          i++;
-          setTimeout(escrever, velocidade);
-        }
-      }
-      escrever();
-    }
+  document.getElementById('startBtn').onclick = () => {
+    const card = document.querySelector('.card');
+    const titulo = document.getElementById('titulo');
 
-    // CORAÇÕES AO ABRIR O PRESENTE
-    function coracoesExplodindoCentro() {
-      for (let i = 0; i < 12; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💖";
+    document.getElementById('startBtn').style.display = 'none';
+    card.style.display = "block";
 
-        heart.style.left = "50vw";
-        heart.style.top = "50vh";
-        heart.style.position = "fixed";
-        heart.style.animationDuration = (1 + Math.random()) + "s";
-        heart.style.fontSize = (20 + Math.random() * 40) + "px";
+    card.style.animation = "none";
+    void card.offsetWidth;
+    card.style.animation = "abrirCaixa 0.8s ease forwards";
 
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 2000);
-      }
-    }
+    setTimeout(() => coracoesExplodindoCentro(), 300);
 
-    // ABRIR PRESENTE
-    document.getElementById('startBtn').onclick = () => {
-      const card = document.querySelector('.card');
-      const titulo = document.getElementById('titulo');
-
-      document.getElementById('startBtn').style.display = 'none';
-      card.style.display = "block";
-
-      // Reiniciar animação
-      card.style.animation = "none";
-      void card.offsetWidth;
-      card.style.animation = "abrirCaixa 0.8s ease forwards";
-
-      // Explosão de corações
-      setTimeout(() => coracoesExplodindoCentro(), 300);
-
-      // Digita o título
-      digitar("Oi Ana ❤️", titulo, 160);
-    };
-  </script>
+    digitar("Oi Vitória ❤️", titulo, 160);
+  };
+</script>
 
 </body>
 </html>
